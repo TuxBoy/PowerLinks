@@ -13,6 +13,7 @@ $request = Zend\Diactoros\ServerRequestFactory::fromGlobals(
 );
 
 (Dotenv\Dotenv::createImmutable(ROOT))->load();
+
 $loader = new \Twig\Loader\FilesystemLoader(ROOT . '/templates');
 $twig = new \Twig\Environment($loader, [
     'cache' => getenv('ENV') === 'production' ? 'path/to/cache' : false,
