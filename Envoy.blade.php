@@ -24,6 +24,18 @@
 
     composer install -o --no-dev
     echo "Composer mis à jour"
+
+    @if ($cache)
+        rm -rf cache/
+        echo "Le répertoire du cache twig a bien été vidé"
+    @endif
+@endtask
+
+@task('clr-cache', ['confirm' => true])
+    cd {{ $pathToSite }}
+
+    rm -rf cache/
+    echo "Le répertoire du cache twig a bien été vidé"
 @endtask
 
 @finished
