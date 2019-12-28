@@ -22,7 +22,7 @@
     git pull origin master
     echo "Dépôt mis à jour"
 
-    composer install -o --no-dev
+    composer install --no-interaction --quiet --no-dev --prefer-dist --optimize-autoloader
     echo "Composer mis à jour"
 
     @if ($cache)
