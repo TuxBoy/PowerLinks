@@ -14,6 +14,12 @@ $request = Zend\Diactoros\ServerRequestFactory::fromGlobals(
 
 (Dotenv\Dotenv::createImmutable(ROOT))->load();
 
+if (getenv('ENV') === 'developpement') {
+	$whoops = new \Whoops\Run;
+	$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+	$whoops->register();
+}
+
 $loader = new \Twig\Loader\FilesystemLoader(ROOT . '/templates');
 $twig = new \Twig\Environment($loader, [
     'cache' => getenv('ENV') === 'production' ? ROOT . '/cache/' : false,
@@ -24,8 +30,7 @@ $twig = new \Twig\Environment($loader, [
 $routerContainer = new Aura\Router\RouterContainer();
 $map = $routerContainer->getMap();
 
-// add a route to the map, and a handler for it
-$map->get('root', '/', [\App\Controller\PageController::class]);
+require ROOT . '/src/routes.php';
 
 $matcher = $routerContainer->getMatcher();
 $route   = $matcher->match($request);
