@@ -20,11 +20,9 @@ if (getenv('ENV') === 'developpement') {
 	$whoops->register();
 }
 
-$loader = new \Twig\Loader\FilesystemLoader(ROOT . '/templates');
-$twig = new \Twig\Environment($loader, [
-    'cache' => getenv('ENV') === 'production' ? ROOT . '/cache/' : false,
-]);
-
+$builder = new DI\ContainerBuilder();
+$builder->addDefinitions(require ROOT . '/src/config.php');
+$container = $builder->build();
 
 // create the router container and get the routing map
 $routerContainer = new Aura\Router\RouterContainer();
@@ -47,13 +45,11 @@ if (! $route) {
 
     $callable = $route->handler;
     if (is_callable($callable) && !is_array($callable)) {
-        $response = $callable($request, $response);
+        $response = $container->call($callable, ['request' => $request]);
     } else {
         $controller = $callable[0];
         $action     = $callable[1] ?? 'index';
-        $response   = call_user_func_array(
-            [new $controller($twig), $action], ['request' => $request, 'response' => $response]
-        );
+        $response   = $container->call([$controller, $action], ['request' => $request]);
     }
 
     // emit the response
