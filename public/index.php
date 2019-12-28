@@ -16,7 +16,7 @@ $request = Zend\Diactoros\ServerRequestFactory::fromGlobals(
 
 $loader = new \Twig\Loader\FilesystemLoader(ROOT . '/templates');
 $twig = new \Twig\Environment($loader, [
-    'cache' => getenv('ENV') === 'production' ? 'path/to/cache' : false,
+    'cache' => getenv('ENV') === 'production' ? ROOT . '/cache/' : false,
 ]);
 
 
