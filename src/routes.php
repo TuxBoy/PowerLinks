@@ -2,5 +2,8 @@
 
 declare(strict_types=1);
 
-// add a route to the map, and a handler for it
-$map->get('root', '/', [\App\Controller\PageController::class]);
+use App\Controller\PageController;
+
+$map->get('root', '/', [PageController::class]);
+
+$map->post('root.post', '/', [PageController::class, 'add']);

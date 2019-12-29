@@ -20,7 +20,8 @@
     "http-interop/response-sender": "dev-master",
     "twig/twig": "^3.0",
     "vlucas/phpdotenv": "^4.1@dev",
-    "php-di/php-di": "dev-master"
+    "php-di/php-di": "dev-master",
+    "ext-pdo": "*"
   },
   "require-dev": {
     "filp/whoops": "^2.5@dev"

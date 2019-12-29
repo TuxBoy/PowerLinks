@@ -4,14 +4,21 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Psr\Http\Message\ServerRequestInterface;
+use App\Table\LinkTable;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 class PageController extends BaseController
 {
 
-    public function index(ServerRequestInterface $request)
+    public function index(Request $request, LinkTable $linkTable)
     {
-        return $this->render('index.twig');
+    	$links = $linkTable->findAll();
+        return $this->render('index.twig', ['links' => $links]);
+    }
+
+	public function add(Request $request)
+	{
+		var_dump($request); die();
     }
 
 }
