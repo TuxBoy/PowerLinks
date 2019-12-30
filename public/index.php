@@ -1,4 +1,7 @@
 <?php
+
+use Aura\Router\RouterContainer;
+
 define('ROOT', dirname(__DIR__));
 
 require ROOT . '/vendor/autoload.php';
@@ -25,7 +28,8 @@ $builder->addDefinitions(require ROOT . '/src/config.php');
 $container = $builder->build();
 
 // create the router container and get the routing map
-$routerContainer = new Aura\Router\RouterContainer();
+$container->set(RouterContainer::class, fn () => new Aura\Router\RouterContainer());
+$routerContainer = $container->get(RouterContainer::class);
 $map = $routerContainer->getMap();
 
 require ROOT . '/src/routes.php';

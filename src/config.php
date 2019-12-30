@@ -1,6 +1,7 @@
 <?php
 
 use App\Connection\Connection;
+use App\Factory\TwigFactory;
 use Psr\Container\ContainerInterface;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -9,17 +10,14 @@ use function DI\factory;
 
 return [
 
+	'env'         => env('ENV'),
+	'debug'       => env('ENV') === 'development',
 	'db.host'     => env('DB_HOST'),
 	'db.login'    => env('DB_USERNAME'),
 	'db.password' => env('DB_PASSWORD'),
 	'db.dbname'   => env('DB_DATABASE'),
 
-	Environment::class => function () {
-		$loader = new FilesystemLoader(ROOT . '/templates');
-		return new Environment($loader, [
-			'cache' => getenv('ENV') === 'production' ? ROOT . '/cache/' : false,
-		]);
-	},
+	Environment::class => factory([TwigFactory::class, 'build']),
 
 	Connection::class => factory(function (ContainerInterface $container) {
 		return new App\Connection\Connection(
