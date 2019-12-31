@@ -9,6 +9,7 @@ use App\Entity\Link;
 
 class LinkTable
 {
+	private const MAX_LIMIT_PER_PAGE = 10;
 
 	protected string $table = 'links';
 
@@ -37,6 +38,15 @@ class LinkTable
 	public function findAll(): array
 	{
 		return $this->connection->query("SELECT * FROM {$this->table}", $this->className);
+	}
+
+	public function paginate(int $limit = null)
+	{
+		if (null === $limit) {
+			$limit = self::MAX_LIMIT_PER_PAGE;
+		}
+
+		return $this->connection->query("SELECT * FROM {$this->table} LIMIT {$limit}", $this->className);
 	}
 
 	public function save(array $data): int
