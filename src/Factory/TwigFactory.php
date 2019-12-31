@@ -20,7 +20,7 @@ class TwigFactory implements FactoryInterface
 	{
 		$router = $container->get(RouterContainer::class);
 		$loader = new FilesystemLoader(ROOT . '/templates');
-		$view = new Environment($loader, [
+		$view   = new Environment($loader, [
 			'cache' => $container->get('env') === 'production' ? ROOT . '/cache/' : false,
 		]);
 

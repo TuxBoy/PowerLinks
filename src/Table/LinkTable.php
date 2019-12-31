@@ -39,4 +39,15 @@ class LinkTable
 		return $this->connection->query("SELECT * FROM {$this->table}", $this->className);
 	}
 
+	public function save(array $data): int
+	{
+		$statement = $this->connection
+			->getConnection()
+			->prepare("INSERT INTO {$this->table} (url, description) VALUES (?, ?)");
+
+		$statement->execute(array_values($data));
+
+		return (int) $this->connection->getConnection()->lastInsertId();
+	}
+
 }
