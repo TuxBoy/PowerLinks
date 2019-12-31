@@ -45,6 +45,17 @@ class Connection
 		return $statement->fetchAll(PDO::FETCH_CLASS, $className);
 	}
 
+	public function insert(string $tableName, array $data): int
+	{
+		$statement = $this
+			->getConnection()
+			->prepare("INSERT INTO $tableName (url, description) VALUES (?, ?)");
+
+		$statement->execute(array_values($data));
+
+		return (int) $this->getConnection()->lastInsertId();
+	}
+
 	public function getConnection(): PDO
 	{
 		return $this->pdo;
