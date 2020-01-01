@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Table\LinkTable;
+use App\Validator\Validator;
 use Aura\Router\Exception\RouteNotFound;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Zend\Diactoros\Response;
@@ -21,13 +22,22 @@ class PageController extends BaseController
 	/**
 	 * @param Request $request
 	 * @param LinkTable $linkTable
+	 * @param Validator $validator
 	 * @return Response
 	 * @throws RouteNotFound
 	 */
-	public function add(Request $request, LinkTable $linkTable): Response
+	public function add(Request $request, LinkTable $linkTable, Validator $validator): Response
 	{
 		$data = $request->getParsedBody();
-		$linkTable->save($data);
+		$validator
+			->check($data)
+			->required('url')
+			->url('url')
+			->minLength('description', 5);
+
+		if (! $validator->hasErrors()) {
+			$linkTable->save($data);
+		}
 
 		return $this->withRedirect('root');
     }
