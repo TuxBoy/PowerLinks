@@ -32,6 +32,11 @@
                 <strong class="d-block text-gray-dark"><a href="{{ link.url }}" target="_blank">{{ link.url }}</a></strong>
                 {{ link.description }}
             </p>
+            <p>
+                <form action="{{ path('link.delete', {id: link.id}) }}" method="post" onsubmit="return confirm('Etes vous sûr de vouloir supprimer cet élément ?')">
+                    <button type="submit" class="btn btn-danger">X</button>
+                </form>
+            </p>
         </div>
         {% endfor %}
 

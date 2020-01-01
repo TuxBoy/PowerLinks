@@ -52,13 +52,17 @@ class LinkTable
 	public function save(array $data): int
 	{
 		return $this->connection->insert($this->table, $data);
-		/*$statement = $this->connection
+	}
+
+	public function delete(int $id): bool
+	{
+		$statement = $this->connection
 			->getConnection()
-			->prepare("INSERT INTO {$this->table} (url, description) VALUES (?, ?)");
+			->prepare("DELETE FROM {$this->table} WHERE id = :id");
 
-		$statement->execute(array_values($data));
+		$deleted = $statement->execute([':id' => $id]);
 
-		return (int) $this->connection->getConnection()->lastInsertId();*/
+		return $deleted;
 	}
 
 }

@@ -32,4 +32,18 @@ class PageController extends BaseController
 		return $this->withRedirect('root');
     }
 
+	/**
+	 * @param Request $request
+	 * @param LinkTable $linkTable
+	 * @return Response
+	 * @throws RouteNotFound
+	 */
+	public function delete(Request $request, LinkTable $linkTable): Response
+	{
+		$id = (int) $request->getAttribute('id');
+		$linkTable->delete($id);
+
+		return $this->withRedirect('root');
+    }
+
 }
