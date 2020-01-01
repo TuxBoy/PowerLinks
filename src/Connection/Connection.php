@@ -47,9 +47,11 @@ class Connection
 
 	public function insert(string $tableName, array $data): int
 	{
+		$fieldsName    = join(', ', array_keys($data));
+		$prepareFields = join(', ', array_map(fn () => '?', array_keys($data)));
 		$statement = $this
 			->getConnection()
-			->prepare("INSERT INTO $tableName (url, description) VALUES (?, ?)");
+			->prepare("INSERT INTO $tableName ($fieldsName) VALUES ($prepareFields)");
 
 		$statement->execute(array_values($data));
 
