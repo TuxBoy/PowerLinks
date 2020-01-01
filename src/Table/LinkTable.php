@@ -51,13 +51,14 @@ class LinkTable
 
 	public function save(array $data): int
 	{
-		$statement = $this->connection
+		return $this->connection->insert($this->table, $data);
+		/*$statement = $this->connection
 			->getConnection()
 			->prepare("INSERT INTO {$this->table} (url, description) VALUES (?, ?)");
 
 		$statement->execute(array_values($data));
 
-		return (int) $this->connection->getConnection()->lastInsertId();
+		return (int) $this->connection->getConnection()->lastInsertId();*/
 	}
 
 }

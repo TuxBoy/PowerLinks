@@ -17,7 +17,7 @@ $request = Zend\Diactoros\ServerRequestFactory::fromGlobals(
 
 (Dotenv\Dotenv::createImmutable(ROOT))->load();
 
-if (getenv('ENV') === 'developpement') {
+if (getenv('ENV') === 'development') {
 	$whoops = new \Whoops\Run;
 	$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 	$whoops->register();

@@ -1,5 +1,6 @@
 .idea
 /vendor/
+.phpunit.result.cache
 
 .env
 Makefile
