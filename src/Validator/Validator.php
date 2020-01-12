@@ -72,4 +72,25 @@ class Validator
 		return $this;
 	}
 
+	public function identical(string $fieldName, string $identical_field): self
+	{
+		if ($this->data[$fieldName] !== $this->data[$identical_field]) {
+			$this->errors[$fieldName]['identical'] = sprintf('Le champ %s n\'est identique avec le %s' , $identical_field, $fieldName);
+		}
+
+		return $this;
+	}
+
+	public function email(string $fieldName): self
+	{
+		if (
+			!isset($this->data[$fieldName])
+			|| filter_var($this->data[$fieldName], FILTER_VALIDATE_EMAIL) === false
+		) {
+			$this->errors[$fieldName]['email'] = sprintf('Le champ %s n\est pas un email valide.', $fieldName);
+		}
+
+		return $this;
+	}
+
 }

@@ -6,6 +6,8 @@ namespace App\Connection;
 
 use PDO;
 use PDOException;
+use PDOStatement;
+use StdClass;
 
 class Connection
 {
@@ -37,12 +39,26 @@ class Connection
 		}
 	}
 
-	public function query(string $query, string $className = null): array
+	/**
+	 * @param string $query
+	 * @param string|null $className
+	 * @param array|null $data
+	 * @return array
+	 */
+	public function query(string $query, string $className = null, array $data = null): array
 	{
-		$className ??= \StdClass::class;
-		$statement = $this->pdo->query($query);
+		return $this->getStatement($query, $className, $data)->fetchAll();
+	}
 
-		return $statement->fetchAll(PDO::FETCH_CLASS, $className);
+	/**
+	 * @param string $query
+	 * @param string|null $className
+	 * @param array|null $data
+	 * @return mixed
+	 */
+	public function queryOne(string $query, string $className = null, array $data = null)
+	{
+		return $this->getStatement($query, $className, $data)->fetch();
 	}
 
 	public function insert(string $tableName, array $data): int
@@ -61,6 +77,27 @@ class Connection
 	public function getConnection(): PDO
 	{
 		return $this->pdo;
+	}
+
+	/**
+	 * @param string $query
+	 * @param string|null $className
+	 * @param array|null $data
+	 * @return PDOStatement|null
+	 */
+	private function getStatement(string $query, ?string $className, array $data = null): ?PDOStatement
+	{
+		$className ??= StdClass::class;
+		if (null !== $data) {
+			$statement = $this->pdo->prepare($query);
+			$statement->execute($data);
+		} else {
+			$statement = $this->pdo->query($query);
+		}
+
+		$statement->setFetchMode(PDO::FETCH_CLASS, $className);
+
+		return $statement ?? null;
 	}
 
 }

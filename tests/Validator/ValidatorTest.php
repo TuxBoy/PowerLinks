@@ -7,7 +7,7 @@ namespace Tests\Validator;
 use App\Validator\Validator;
 use PHPUnit\Framework\TestCase;
 
-class ValidatorTest extends TestCase
+final class ValidatorTest extends TestCase
 {
 
 	public function testRequiredAllFieldsValidator()
@@ -83,6 +83,42 @@ class ValidatorTest extends TestCase
 		$validator->check(['content' => 'azaze'])->minLength('content', 5);
 
 		$this->assertFalse($validator->hasErrors());
+	}
+
+	public function testIdenticalValueField()
+	{
+		$validator = new Validator();
+		$validator->check(['name1' => 'aze', 'name2' => 'aze'])->identical('name1', 'name2');
+
+		$this->assertFalse($validator->hasErrors());
+
+		$validator = new Validator();
+		$validator->check(['name1' => 'aze', 'name2' => 'azeraz'])->identical('name1', 'name2');
+
+		$this->assertTrue($validator->hasErrors());
+
+	}
+
+	public function testValidEmail()
+	{
+		$validator = new Validator();
+		$validator->check(['email' => 'aze@test.fr'])->email('email');
+
+		$this->assertFalse($validator->hasErrors());
+
+		$validator = new Validator();
+		$validator->check(['email' => 'aze@test.'])->email('email');
+
+		$this->assertTrue($validator->hasErrors());
+
+	}
+
+	public function testRequiredIfIndexNotExist()
+	{
+		$validator = new Validator();
+		$validator->check(['name' => 'zeaea'])->required('content')->email('content');
+
+		$this->assertTrue($validator->hasErrors());
 	}
 
 }

@@ -2,6 +2,8 @@
 
 use App\Connection\Connection;
 use App\Factory\TwigFactory;
+use App\Session\Session;
+use App\Session\SessionInterface;
 use Psr\Container\ContainerInterface;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -18,6 +20,8 @@ return [
 	'db.dbname'   => env('DB_DATABASE'),
 
 	Environment::class => factory([TwigFactory::class, 'build']),
+
+	SessionInterface::class => \DI\create(Session::class),
 
 	Connection::class => factory(function (ContainerInterface $container) {
 		return new App\Connection\Connection(

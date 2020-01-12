@@ -32,6 +32,7 @@ abstract class BaseController
     protected function render(string $name, array $params = []): Response
     {
         $response = new Response();
+        $name     = str_replace('.', '/', $name) . '.twig';
         $response->getBody()->write($this->twig->render($name, $params));
 
         return $response;

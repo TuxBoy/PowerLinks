@@ -16,7 +16,7 @@ class PageController extends BaseController
     public function index(Request $request, LinkTable $linkTable): Response
     {
     	$links = $linkTable->paginate();
-        return $this->render('index.twig', ['links' => $links]);
+        return $this->render('index', ['links' => $links]);
     }
 
 	/**

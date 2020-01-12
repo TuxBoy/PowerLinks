@@ -29,8 +29,11 @@ $container = $builder->build();
 
 // create the router container and get the routing map
 $container->set(RouterContainer::class, fn () => new Aura\Router\RouterContainer());
+/** @var $routerContainer RouterContainer */
 $routerContainer = $container->get(RouterContainer::class);
 $map = $routerContainer->getMap();
+
+$container->get(\App\Session\SessionInterface::class)->start();
 
 require ROOT . '/src/routes.php';
 
