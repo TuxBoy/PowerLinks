@@ -28,6 +28,9 @@
         <ul class="navbar-nav my-2 my-lg-0">
             {% if auth().current %}
                 <li class="nav-item"><a href="" class="nav-link"><img src="{{ auth().current.avatar }}" alt="{{ auth().current.username }}" class="rounded-circle"></a></li>
+                {% if auth().current.isAdmin %}
+                    <li class="nav-item" style="line-height: 2;"><a href="" class="nav-link"><strong>Admin</strong></a></li>
+                {% endif %}
                 <li class="nav-item" style="line-height: 2;"><a href="{{ path('user.disconnect') }}" class="nav-link">Se déconnecter</a></li>
             {% else %}
                 <li class="nav-item"><a href="{{ path('user.login') }}" class="nav-link btn btn-outline-success">Se connecter</a></li>

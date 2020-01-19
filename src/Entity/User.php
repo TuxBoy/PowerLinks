@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Authenticate\Role;
 use App\Hash;
 
 class User
@@ -16,6 +17,8 @@ class User
 	public string $password;
 
 	public ?string $email = null;
+
+	public string $role = Role::MEMBER;
 
 	/**
 	 * @param string $password
@@ -37,7 +40,27 @@ class User
 	{
 		$default = "https://www.somewhere.com/homestar.jpg";
 		$size    = 40;
+
 		return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $this->email ) ) ) . "?s=" . $size;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isAdmin(): bool
+	{
+		return $this->role === Role::ADMIN;
+	}
+
+	/**
+	 * Vérifie si le user est bien l'autheur du lien
+	 * 
+	 * @param  link Link
+	 * @return boolean
+	 */
+	public function isAuthor(Link $link): bool
+	{
+		return $link->user_id === $this->id;
 	}
 
 }

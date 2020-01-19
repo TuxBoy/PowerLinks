@@ -9,6 +9,8 @@ use DateTime;
 class Link
 {
 
+	public int $id;
+
 	public string $url;
 
 	public ?string $description = null;
@@ -18,6 +20,10 @@ class Link
 	public $createdAt = null;
 
 	public $updatedAt = null;
+
+	public int $user_id;
+
+	public ?User $user = null;
 
 	/**
 	 * @return DateTime

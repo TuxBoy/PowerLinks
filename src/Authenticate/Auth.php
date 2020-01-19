@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Hash;
 use App\Session\SessionInterface;
 use App\Table\UserTable;
+use Exception;
 
 class Auth
 {
@@ -18,7 +19,7 @@ class Auth
 
 	public function __construct(SessionInterface $session, UserTable $userTable)
 	{
-		$this->session = $session;
+		$this->session   = $session;
 		$this->userTable = $userTable;
 	}
 
@@ -29,7 +30,7 @@ class Auth
 
 	/**
 	 * @return User
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public function current(): ?User
 	{
@@ -50,7 +51,7 @@ class Auth
 	 * @param string $username
 	 * @param string $password
 	 * @return bool
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public function login(string $username, string $password): bool
 	{

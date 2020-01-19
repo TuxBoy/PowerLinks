@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Authenticate\Auth;
 use App\Table\LinkTable;
 use App\Validator\Validator;
 use Aura\Router\Exception\RouteNotFound;
@@ -23,10 +24,11 @@ class PageController extends BaseController
 	 * @param Request $request
 	 * @param LinkTable $linkTable
 	 * @param Validator $validator
+	 * @param Auth $auth
 	 * @return Response
 	 * @throws RouteNotFound
 	 */
-	public function add(Request $request, LinkTable $linkTable, Validator $validator): Response
+	public function add(Request $request, LinkTable $linkTable, Validator $validator, Auth $auth): Response
 	{
 		$data = $request->getParsedBody();
 		$validator
@@ -36,6 +38,7 @@ class PageController extends BaseController
 			->minLength('description', 5);
 
 		if (! $validator->hasErrors()) {
+			$data['user_id'] = $auth->current()->id;
 			$linkTable->save($data);
 		}
 

@@ -12,7 +12,7 @@ abstract class Table
 
 	protected const MAX_LIMIT_PER_PAGE = 10;
 
-	protected string $table = 'links';
+	protected ?string $table = null;
 
 	protected Connection $connection;
 

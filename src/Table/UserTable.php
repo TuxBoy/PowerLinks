@@ -12,7 +12,7 @@ use Exception;
 class UserTable extends Table
 {
 
-	protected string $table = 'users';
+	protected ?string $table = 'users';
 
 	public function __construct(Connection $connection)
 	{
