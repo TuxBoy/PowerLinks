@@ -26,7 +26,8 @@
     "twig/twig": "^3.0",
     "vlucas/phpdotenv": "^4.1@dev",
     "php-di/php-di": "dev-master",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "psr/http-server-middleware": "^1.0@dev"
   },
   "require-dev": {
     "filp/whoops": "^2.5@dev",

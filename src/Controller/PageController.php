@@ -5,16 +5,30 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Authenticate\Auth;
+use App\Middleware\Csrf\CsrfMiddleware;
 use App\Table\LinkTable;
 use App\Validator\Validator;
 use Aura\Router\Exception\RouteNotFound;
+use Aura\Router\RouterContainer;
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Twig\Environment;
 use Zend\Diactoros\Response;
 
 class PageController extends BaseController
 {
 
-    public function index(Request $request, LinkTable $linkTable): Response
+	private ?ContainerInterface $container = null;
+
+	public function __construct(Environment $twig, RouterContainer $router, ContainerInterface $container)
+	{
+		$this->container = $container;
+		parent::__construct($twig, $router);
+		$this->middleware(CsrfMiddleware::class);
+	}
+
+	public function index(Request $request, LinkTable $linkTable): Response
     {
     	$links = $linkTable->paginate();
         return $this->render('index', ['links' => $links]);
@@ -58,5 +72,12 @@ class PageController extends BaseController
 
 		return $this->withRedirect('root');
     }
+
+	private function middleware(string $middleware)
+	{
+		$this->container
+			->get($middleware)
+			->handle($this->container->get(ServerRequestInterface::class));
+	}
 
 }

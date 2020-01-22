@@ -56,7 +56,8 @@ if (! $route) {
     } else {
         $controller = $callable[0];
         $action     = $callable[1] ?? 'index';
-        $response   = $container->call([$controller, $action], ['request' => $request]);
+        $container->set(\Psr\Http\Message\ServerRequestInterface::class, $request);
+	    $response   = $container->call([$controller, $action], ['request' => $request]);
     }
 
     // emit the response

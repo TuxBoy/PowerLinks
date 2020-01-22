@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Factory;
 
 use App\Twig\AuthExtension;
+use App\Twig\CsrfExtension;
 use App\Twig\TwigExtension;
 use Aura\Router\RouterContainer;
 use Psr\Container\ContainerInterface;
@@ -29,6 +30,7 @@ class TwigFactory implements FactoryInterface
 
 		$view->addExtension(new TwigExtension($router));
 		$view->addExtension($container->get(AuthExtension::class));
+		$view->addExtension($container->get(CsrfExtension::class));
 		$view->addExtension(new DebugExtension());
 
 		return $view;

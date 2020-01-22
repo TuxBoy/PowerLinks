@@ -21,6 +21,8 @@ return [
 
 	Environment::class => factory([TwigFactory::class, 'build']),
 
+	'middlewares' => [\App\Middleware\Csrf\CsrfMiddleware::class],
+
 	SessionInterface::class => \DI\create(Session::class),
 
 	Connection::class => factory(function (ContainerInterface $container) {
