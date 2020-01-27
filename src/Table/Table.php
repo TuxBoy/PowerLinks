@@ -49,13 +49,17 @@ abstract class Table
 		return $result;
 	}
 
-	public function paginate(int $limit = null)
+	public function paginate(int $limit = null): array
 	{
 		if (null === $limit) {
 			$limit = self::MAX_LIMIT_PER_PAGE;
 		}
 
-		return $this->connection->query("SELECT * FROM {$this->table} LIMIT {$limit}", $this->className);
+		return $this->connection
+			->query(
+				"SELECT * FROM {$this->table} AS t0 ORDER BY t0.createdAt DESC LIMIT {$limit}",
+				$this->className
+		);
 	}
 
 	public function save(array $data): int

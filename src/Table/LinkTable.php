@@ -19,7 +19,7 @@ class LinkTable extends Table
 		$this->className = Link::class;
 	}
 
-	public function paginate(int $limit = null)
+	public function paginate(int $limit = null): array
 	{
 		/** @var $link Link */
 		$links = parent::paginate($limit);
