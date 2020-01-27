@@ -32,6 +32,7 @@
   "require-dev": {
     "filp/whoops": "^2.5@dev",
     "phpunit/phpunit": "^9.0@dev",
-    "symfony/var-dumper": "^5.1@dev"
+    "symfony/var-dumper": "^5.1@dev",
+    "symfony/webpack-encore-bundle": "dev-master"
   }
 }

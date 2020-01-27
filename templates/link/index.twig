@@ -1,0 +1,15 @@
+{% extends 'base.twig' %}
+
+{% block title %}Tous les liens{% endblock %}
+
+{% block body %}
+
+    <div class="container" style="padding-top: 80px;">
+        <h1>Tous les liens</h1>
+
+        <div class="my-3 p-3 bg-white rounded shadow-sm">
+            {% include 'partials/links.twig' with {'links': links} only %}
+        </div>
+    </div>
+
+{% endblock %}

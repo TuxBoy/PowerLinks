@@ -31,8 +31,14 @@ class TwigExtension extends AbstractExtension
 	public function getFunctions(): array
 	{
 		return [
-			new TwigFunction('path', [$this, 'generateRoute'])
+			new TwigFunction('path', [$this, 'generateRoute']),
+			new TwigFunction('asset', [$this, 'asset']),
 		];
+	}
+
+	public function asset(string $file): string
+	{
+		return $file;
 	}
 
 	/**

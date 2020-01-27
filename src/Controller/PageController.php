@@ -73,7 +73,7 @@ class PageController extends BaseController
 		return $this->withRedirect('root');
     }
 
-	private function middleware(string $middleware)
+	private function middleware(string $middleware): void
 	{
 		$this->container
 			->get($middleware)
