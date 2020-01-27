@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use Aura\Router\Exception\RouteNotFound;
 use Aura\Router\RouterContainer;
+use Psr\Http\Message\ServerRequestInterface;
 use Twig\Environment;
 use Zend\Diactoros\Response;
 
@@ -49,6 +50,16 @@ abstract class BaseController
 		$path = $this->router->getGenerator()->generate($routeName, $params);
 
 		return new Response('php://memory', self::PERMANENT_REDIRECT, ['Location' => $path]);
+    }
+
+	protected function getData(ServerRequestInterface $request): array
+	{
+		$params = $request->getParsedBody() ?? [];
+		if (isset($params['_csrf'])) {
+			unset($params['_csrf']);
+		}
+
+		return $params;
     }
 
 }

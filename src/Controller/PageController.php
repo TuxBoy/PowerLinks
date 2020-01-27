@@ -44,7 +44,7 @@ class PageController extends BaseController
 	 */
 	public function add(Request $request, LinkTable $linkTable, Validator $validator, Auth $auth): Response
 	{
-		$data = $request->getParsedBody();
+		$data = $this->getData($request);
 		$validator
 			->check($data)
 			->required('url')

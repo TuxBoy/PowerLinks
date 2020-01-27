@@ -33,7 +33,7 @@ class CsrfMiddleware
 		if (\in_array($request->getMethod(), ['POST', 'PUT', 'PATCH', 'DELETE'], true)) {
 			$params = $request->getParsedBody() ?? [];
 			if (! array_key_exists($this->formKey, $params)) {
-				throw new NoCsrfException();
+				throw new NoCsrfException('The csrf token is not found');
 			}
 
 			if (! \in_array($params[$this->formKey], $this->session->get($this->sessionKey) ?? [], true)) {
