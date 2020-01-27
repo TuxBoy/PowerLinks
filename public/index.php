@@ -42,7 +42,7 @@ $route   = $matcher->match($request);
 
 if (! $route) {
     $response = new \Zend\Diactoros\Response('php://memory', 404);
-    $response->getBody()->write("No route found for the request.");
+    $response->getBody()->write($container->get(\Twig\Environment::class)->render('errors/404.twig'));
 } else {
     $response = new \Zend\Diactoros\Response();
     // add route attributes to the request
