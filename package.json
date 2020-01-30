@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "sass": "^1.25.0"
+  },
+  "scripts": {
+    "dev": "parcel watch public/js/app.js public/css/*.scss -d public/dist --no-cache",
+    "build": "parcel build public\\js\\app.js public\\css\\*.scss -d public\\dist"
+  }
+}
