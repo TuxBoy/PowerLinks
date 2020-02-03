@@ -7,8 +7,8 @@ if (showFormAddLink) {
         document.querySelector('#addFormLink').classList.toggle('hide')
     })
     document.addEventListener('keydown', event => {
-        event.preventDefault()
         if (event.key === 't') {
+            event.preventDefault()
             document.querySelector('#addFormLink').classList.toggle('hide')
             const urlInput = document.querySelector('#addFormLink #urlInput')
             urlInput.focus()
