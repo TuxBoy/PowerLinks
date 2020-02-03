@@ -1,0 +1,15 @@
+.addFormLink {
+  &.hide {
+    display: none;
+  }
+  &.show {
+    display: block;
+  }
+}
+
+.showFormAddLink {
+  cursor: pointer;
+  &:hover {
+    color: #007bff;
+  }
+}
