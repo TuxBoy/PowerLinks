@@ -13,7 +13,11 @@
     </div>
 
     {% if auth().current %}
-        <h6 class="border-bottom border-gray pb-2 mb-0 showFormAddLink" id="showFormAddLink" >Ajouter un lien</h6>
+        <h6
+                class="border-bottom border-gray pb-2 mb-0 showFormAddLink"
+                id="showFormAddLink" title="Cliquez ici ou sur la touche 't' pour afficher le formulaire">
+            Ajouter un lien
+        </h6>
         <form action="{{ path('root.post') }}" method="post" class="form addFormLink hide" id="addFormLink">
             {{ csrf_field() }}
             <div class="form-group">
