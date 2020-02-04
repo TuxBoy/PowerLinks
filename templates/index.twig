@@ -3,21 +3,12 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-
-    <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
-        <img class="mr-3" src="" alt="" width="48" height="48">
-        <div class="lh-100">
-            <h6 class="mb-0 text-white lh-100">Bootstrap</h6>
-            <small>Since 2011</small>
-        </div>
-    </div>
-
     {% if auth().current %}
-        <h6
-                class="border-bottom border-gray pb-2 mb-0 showFormAddLink"
-                id="showFormAddLink" title="Cliquez ici ou sur la touche 't' pour afficher le formulaire">
+        <a
+            class="btn btn-success border-bottom pb-2 mt-2 mb-3 showFormAddLink"
+            id="showFormAddLink" href="#" title="Cliquez ici ou sur la touche 't' pour afficher le formulaire puis 'Echap' pour le fermer">
             Ajouter un lien
-        </h6>
+        </a>
         <form action="{{ path('root.post') }}" method="post" class="form addFormLink hide" id="addFormLink">
             {{ csrf_field() }}
             <div class="form-group">
@@ -29,17 +20,14 @@
             <button class="btn btn-primary" type="submit">Ajouter</button>
         </form>
     {% endif %}
+    <h2 class="border-bottom border-gray pb-2 mb-0">Les derniers liens ajoutés</h2>
+    {% include 'partials/links.twig' with {'links': links} only %}
 
-    <div class="my-3 p-3 bg-white rounded shadow-sm">
-        <h6 class="border-bottom border-gray pb-2 mb-0">Les derniers liens ajoutés</h6>
-        {% include 'partials/links.twig' with {'links': links} only %}
+    <small class="d-block text-right mt-3">
+        <a href="{{ path('link.index') }}">Voir tous les liens</a>
+    </small>
 
-        <small class="d-block text-right mt-3">
-            <a href="{{ path('link.index') }}">Voir tous les liens</a>
-        </small>
-    </div>
-
-    <div class="my-3 p-3 bg-white rounded shadow-sm">
+    <div class="my-3 bg-white rounded shadow-sm">
         <h6 class="border-bottom border-gray pb-2 mb-0">Suggestions</h6>
         <div class="media text-muted pt-3">
             <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>

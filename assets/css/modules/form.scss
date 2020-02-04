@@ -1,15 +1,24 @@
 .addFormLink {
+  opacity: 1;
+  height: 170px;
+  transition: height .3s;
   &.hide {
-    display: none;
-  }
-  &.show {
-    display: block;
+    opacity: 0;
+    height: 0;
   }
 }
 
-.showFormAddLink {
-  cursor: pointer;
-  &:hover {
-    color: #007bff;
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
   }
 }
