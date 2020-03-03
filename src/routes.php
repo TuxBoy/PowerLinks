@@ -22,3 +22,7 @@ $map->post('user.post.register', '/user/register', [UserController::class, 'regi
 
 /** Links routes */
 $map->get('link.index', '/tous-les-liens', [LinkController::class]);
+$map->post('link.getMetadata', '/link/metas', [LinkController::class, 'getMetadata'])
+	->accepts([
+		'application/json',
+	]);

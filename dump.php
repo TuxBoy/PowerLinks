@@ -2,7 +2,7 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-(Dotenv\Dotenv::createImmutable(ROOT))->load();
+(Dotenv\Dotenv::createImmutable(__DIR__))->load();
 
 $db_name     = getenv('DB_DATABASE');
 $db_host     = getenv('DB_HOST');
@@ -11,17 +11,13 @@ $db_password = getenv('DB_PASSWORD');
 
 $connection = new \App\Connection\Connection($db_name, $db_host, $db_login, $db_password);
 
-$connection->getConnection()->exec(<<<SQL
-	CREATE TABLE IF NOT EXISTS `links` (
-	  `id` int(11) NOT NULL AUTO_INCREMENT,
-	  `url` varchar(255) NOT NULL,
-	  `description` text DEFAULT NULL,
-	  `view` bigint(20) DEFAULT 0,
-	  `createdAt` datetime DEFAULT current_timestamp(),
-	  `updatedAt` datetime DEFAULT current_timestamp(),
-	  PRIMARY KEY (`id`)
-	) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-	SQL
-);
+$params = ['method' => $argv[1], 'className' => $argv[2] ?? null];
 
-echo 'Le dump a bien été fait.';
+$migration = new App\Migration\Migration($connection, $params['method'], $params['className']);
+try {
+	$output = $migration->invoke();
+} catch (Exception $e) {
+	echo $e->getMessage();
+}
+
+echo $output;
