@@ -1,0 +1,59 @@
+/** BASES */
+
+:root {
+  --dark_color: #292D3E;
+  --blue: #1C3A40;
+  --red: #D24335;
+  --green: #B2E097;
+}
+
+.container {
+  padding-top: 75px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: var(--blue);
+  border-color: var(--blue);
+}
+
+/**
+ * MODULES
+ */
+
+.addFormLink {
+  opacity: 1;
+  height: 170px;
+  -webkit-transition: height 0.3s;
+  transition: height 0.3s;
+}
+
+.addFormLink.hide {
+  opacity: 0;
+  height: 0;
+}
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+.bg-primary {
+  background-color: var(--dark_color) !important;
+}
+
+.link__author {
+  display: block;
+  text-align: right;
+}
+
